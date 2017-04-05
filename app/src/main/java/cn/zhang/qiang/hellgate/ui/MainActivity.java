@@ -25,13 +25,19 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import cn.zhang.qiang.hellgate.R;
+import cn.zhang.qiang.hellgate.net.NetHelper;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -88,7 +94,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            
+
             return true;
         }
 
@@ -104,9 +110,45 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (id == R.id.nav_camera) {
             // Handle the camera action
         } else if (id == R.id.nav_gallery) {
+            NetHelper.host(new Callback<String>() {
+                @Override
+                public void onResponse(Call<String> call, Response<String> response) {
+                    if (response.isSuccessful()) {
+                        new AlertDialog.Builder(MainActivity.this)
+                                .setTitle("主页")
+                                .setMessage(response.body())
+                                .show();
+                    } else {
+                        Toast.makeText(MainActivity.this, "请求失败!" + response.code() + ":" + response.message(), Toast.LENGTH_SHORT).show();
+                    }
+                }
 
+                @Override
+                public void onFailure(Call<String> call, Throwable t) {
+                    Toast.makeText(MainActivity.this, "请求出错!" + t.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
         } else if (id == R.id.nav_slideshow) {
+            NetHelper.login("287431404", "19920314", new Callback<String>() {
+                @Override
+                public void onResponse(Call<String> call, Response<String> response) {
 
+                    if (response.isSuccessful()) {
+                        new AlertDialog.Builder(MainActivity.this)
+                                .setTitle("主页")
+                                .setMessage(response.body())
+                                .show();
+                    } else {
+                        Toast.makeText(MainActivity.this, "请求失败!" + response.code() + ":" + response.message(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<String> call, Throwable t) {
+
+                    Toast.makeText(MainActivity.this, "请求出错!" + t.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
         } else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_share) {

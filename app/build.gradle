@@ -30,7 +30,6 @@ dependencies {
     })
     compile 'com.android.support:appcompat-v7:25.3.0'
     compile 'com.android.support:design:25.3.0'
-    compile 'com.android.support:recyclerview-v7:25.3.0'
     compile 'com.android.support:cardview-v7:25.3.0'
     testCompile 'junit:junit:4.12'
 
@@ -38,12 +37,13 @@ dependencies {
     compile files('libs/libammsdk.jar')
     // 自定义日志工具
     compile 'com.github.mrzhqiang:CustomLogger:1.4'
-    // 谷歌官方解析gson
-    compile 'com.google.code.gson:gson:2.7'
     // 强大的网络、图片、数据库
-    compile 'com.squareup.okhttp3:okhttp:3.6.0'
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.squareup.sqlbrite:sqlbrite:1.1.1'
+    compile 'com.squareup.retrofit2:retrofit:2.2.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.2.0'
+    compile 'com.squareup.retrofit2:converter-scalars:2.2.0'
+    compile 'com.squareup.retrofit2:adapter-rxjava:2.2.0'
     // 响应式多线程，订阅与通知
     compile 'io.reactivex:rxandroid:1.2.1'
     compile 'io.reactivex:rxjava:1.1.6'

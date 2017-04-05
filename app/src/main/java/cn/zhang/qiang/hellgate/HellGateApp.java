@@ -22,6 +22,8 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
+import cn.zhang.qiang.hellgate.db.DbBus;
+
 /**
  * <p>
  * Created by mrZQ on 2017/3/5.
@@ -29,16 +31,11 @@ import android.net.NetworkInfo;
 
 public class HellGateApp extends Application {
 
-    private static HellGateApp app;
-
-    public static HellGateApp getInstance() {
-        return app;
-    }
-
     @Override
     public void onCreate() {
         super.onCreate();
-        app = this;
+
+        DbBus.initDb(this);
     }
 
     /** 网络是否存在、是否已连接 */
