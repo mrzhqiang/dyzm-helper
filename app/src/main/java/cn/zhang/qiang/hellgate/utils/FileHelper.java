@@ -35,7 +35,7 @@ import cn.qiang.zhang.logger.Log;
 public final class FileHelper {
     private static final String TAG = "FileHelper";
 
-    private FileHelper() {}
+    private FileHelper() { throw new AssertionError("no instance."); }
 
     public static boolean checkoutSDCard() {
         return Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState());

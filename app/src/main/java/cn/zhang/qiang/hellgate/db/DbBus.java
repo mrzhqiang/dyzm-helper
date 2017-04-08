@@ -25,7 +25,7 @@ public final class DbBus {
         return db;
     }
 
-    public static synchronized void initDb(Context context) {
+    public static void initDb(Context context) {
         if (db == null) {
             db = provideDatabase(provideSqlBrite(), DbHelper.getInstance(context));
         }
@@ -37,7 +37,7 @@ public final class DbBus {
         }
     }
 
-    public static SqlBrite provideSqlBrite() {
+    private static SqlBrite provideSqlBrite() {
         return new SqlBrite.Builder().logger(new SqlBrite.Logger() {
             @Override
             public void log(String message) {
@@ -46,7 +46,7 @@ public final class DbBus {
         }).build();
     }
 
-    public static BriteDatabase provideDatabase(SqlBrite sqlBrite, DbHelper dbHelper) {
+    private static BriteDatabase provideDatabase(SqlBrite sqlBrite, DbHelper dbHelper) {
         BriteDatabase db = sqlBrite.wrapDatabaseHelper(dbHelper, Schedulers.io());
         db.setLoggingEnabled(true);
         return db;

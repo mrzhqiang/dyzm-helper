@@ -27,15 +27,15 @@ public final class Db {
     }
 
     public static boolean getBoolean(Cursor cursor, String columnName) {
-        return getInt(cursor, columnName) == BOOLEAN_TRUE;
+        return getLong(cursor, columnName) == BOOLEAN_TRUE;
     }
 
     public static long getLong(Cursor cursor, String columnName) {
-        return cursor.getLong(cursor.getColumnIndexOrThrow(columnName));
+        return cursor.getLong(cursor.getColumnIndex(columnName));
     }
 
     public static int getInt(Cursor cursor, String columnName) {
-        return cursor.getInt(cursor.getColumnIndexOrThrow(columnName));
+        return cursor.getInt(cursor.getColumnIndex(columnName));
     }
 
     public static double getDouble(Cursor cursor, String columnName) {

@@ -1,9 +1,5 @@
 package cn.zhang.qiang.hellgate.net;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
-
 import retrofit2.Callback;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
@@ -16,8 +12,6 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public final class NetHelper {
     private static final String BASE_URL = "http://haowanba.com/";
-
-    private static final SimpleDateFormat FORMAT = new SimpleDateFormat("yyyyMMddHHmmss", Locale.getDefault());
 
     private NetService service;
 
@@ -42,7 +36,7 @@ public final class NetHelper {
     }
 
     public static void login(String username, String password, Callback<String> callback) {
-//        http://haowanba.com/cardh.php?name=287431404&pwd=19920314&url=0&exuid=&action=passport&_do=&time=20170405111836
-        Holder.N.service.login(username, password, "0", "", "passport", "", FORMAT.format(new Date())).enqueue(callback);
+//        http://haowanba.com/cardh.php?name=cnm12355&pwd=123456&url=0&exuid=&action=passport&_do=&time=20170405111836
+        Holder.N.service.login(username, password, "0", "", "passport", "", "20170408233200").enqueue(callback);
     }
 }
