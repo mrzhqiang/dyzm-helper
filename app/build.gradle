@@ -28,9 +28,9 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:25.3.0'
-    compile 'com.android.support:design:25.3.0'
-    compile 'com.android.support:cardview-v7:25.3.0'
+    compile 'com.android.support:appcompat-v7:25.3.1'
+    compile 'com.android.support:design:25.3.1'
+    compile 'com.android.support:cardview-v7:25.3.1'
     testCompile 'junit:junit:4.12'
 
     // 微信开放平台SDK
@@ -66,4 +66,6 @@ dependencies {
     // findView 懒人必备
     compile 'com.jakewharton:butterknife:8.5.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
+    // 简化权限请求
+    compile 'pub.devrel:easypermissions:0.3.1'
 }
