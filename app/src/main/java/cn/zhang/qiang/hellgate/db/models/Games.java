@@ -8,7 +8,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import cn.zhang.qiang.hellgate.db.Db;
-import cn.zhang.qiang.hellgate.db.DbModel;
 import cn.zhang.qiang.hellgate.db.DbTable;
 import cn.zhang.qiang.hellgate.utils.TimeHelper;
 
@@ -20,7 +19,7 @@ import static android.provider.BaseColumns._ID;
  * Created by mrZQ on 2017/4/8.
  */
 
-public class Games implements DbModel {
+public class Games {
 
     private long id = -1;
     public String name;
@@ -40,7 +39,6 @@ public class Games implements DbModel {
         return TimeHelper.showTime(created);
     }
 
-    @Override
     public void setValuesFromCursor(Cursor cursor) {
         id = Db.getLong(cursor, _ID);
         name = Db.getString(cursor, Table.COL_NAME);
@@ -54,7 +52,6 @@ public class Games implements DbModel {
         portalDomain = Db.getString(cursor, Portals.Table.COL_DOMAIN);
     }
 
-    @Override
     public ContentValues toContentValues() {
         ContentValues out = new ContentValues();
 
@@ -71,7 +68,6 @@ public class Games implements DbModel {
         return out;
     }
 
-    @Override
     public void setId(long id) {
         this.id = id;
     }

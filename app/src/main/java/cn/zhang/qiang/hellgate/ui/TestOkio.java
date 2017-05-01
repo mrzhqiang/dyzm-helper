@@ -20,7 +20,6 @@ package cn.zhang.qiang.hellgate.ui;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.NonNull;
@@ -30,9 +29,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
@@ -40,15 +36,11 @@ import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 import cn.zhang.qiang.hellgate.R;
 import cn.zhang.qiang.hellgate.utils.FileHelper;
 import okio.BufferedSink;
 import okio.BufferedSource;
 import okio.Okio;
-import pub.devrel.easypermissions.AppSettingsDialog;
 import pub.devrel.easypermissions.EasyPermissions;
 
 /**
@@ -61,18 +53,6 @@ public class TestOkio extends AppCompatActivity implements EasyPermissions.Permi
 
     private static final int RC_WRITE_EXTERNAL_STORAGE = 100;
 
-    @BindView(R.id.tv_show_something)
-    TextView tvContent;
-
-    @BindView(R.id.btn_add)
-    Button btnAdd;
-    @BindView(R.id.btn_remove)
-    Button btnRemove;
-    @BindView(R.id.btn_changed)
-    Button btnChanged;
-    @BindView(R.id.btn_show)
-    Button btnShow;
-
     File targetFile;
 
     AlertDialog customDialog;
@@ -82,7 +62,6 @@ public class TestOkio extends AppCompatActivity implements EasyPermissions.Permi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
 
-        ButterKnife.bind(this);
     }
 
     @Override
@@ -91,7 +70,6 @@ public class TestOkio extends AppCompatActivity implements EasyPermissions.Permi
         EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
     }
 
-    @OnClick(R.id.btn_add)
 //    @AfterPermissionGranted(RC_WRITE_EXTERNAL_STORAGE)
     public void openAddDialog() {
         if (EasyPermissions.hasPermissions(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
@@ -131,15 +109,11 @@ public class TestOkio extends AppCompatActivity implements EasyPermissions.Permi
                 .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        EditText input = ButterKnife.findById(inputView, R.id.dialog_edit_input);
-                        String addContent = input.getText().toString();
-                        addSomething(addContent);
                         dialog.dismiss();
                     }
                 }).show();
     }
 
-    @OnClick(R.id.btn_show)
 //    @AfterPermissionGranted(RC_WRITE_EXTERNAL_STORAGE)
     public void showContent() {
         if (EasyPermissions.hasPermissions(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
@@ -155,7 +129,6 @@ public class TestOkio extends AppCompatActivity implements EasyPermissions.Permi
         try {
             BufferedSource source = Okio.buffer(Okio.source(targetFile));
             String content = source.readUtf8();
-            tvContent.setText(content);
             Toast.makeText(this, "读取成功", Toast.LENGTH_SHORT).show();
         } catch (IOException e) {
             e.printStackTrace();
@@ -175,7 +148,7 @@ public class TestOkio extends AppCompatActivity implements EasyPermissions.Permi
 
     @Override
     public void onPermissionsGranted(int requestCode, List<String> perms) {
-        Toast.makeText(this, "请继续操作", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, "请继续操作", Toast.LENGTH_SHORT).show();
         Log.d(TAG, "onPermissionsGranted:" + requestCode + ":" + perms.size());
     }
 
@@ -189,29 +162,8 @@ public class TestOkio extends AppCompatActivity implements EasyPermissions.Permi
         // (Optional) Check whether the user denied any permissions and checked "NEVER ASK AGAIN."
         // This will display a dialog directing them to enable the permission in app settings.
         if (EasyPermissions.somePermissionPermanentlyDenied(this, perms)) {
-            new AppSettingsDialog.Builder(this)
-                    .setTitle("需要存储权限")
-                    .setRationale("为了写入或读取历史数据")
-                    .setRequestCode(requestCode)
-                    .build().show();
+            // 这一步最好是告知用户 打开设置去给当前应用授权，框架似乎存在崩溃问题
         }
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        // 默认的code，是作为统一请求而存在，但统一请求通常会有这样的情况：
-        // 用户或某些app取消权限，导致运行时无权限崩溃，因此建议在运行时检查权限比较合适。
-        if (requestCode == AppSettingsDialog.DEFAULT_SETTINGS_REQ_CODE) {
-            // Do something after user returned from app settings screen, like showing a Toast.
-            Toast.makeText(this, "请继续操作", Toast.LENGTH_SHORT).show();
-        }
-
-        if (requestCode == RC_WRITE_EXTERNAL_STORAGE) {
-            if (EasyPermissions.hasPermissions(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-                Toast.makeText(this, "请继续操作", Toast.LENGTH_SHORT).show();
-            }
-        }
-    }
 }

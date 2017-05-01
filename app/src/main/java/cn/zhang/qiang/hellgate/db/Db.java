@@ -1,7 +1,11 @@
 package cn.zhang.qiang.hellgate.db;
 
 import android.database.Cursor;
+import android.text.TextUtils;
 import android.util.Base64;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 /**
  * <p>
@@ -12,14 +16,25 @@ public final class Db {
     public static final int BOOLEAN_FALSE = 0;
     public static final int BOOLEAN_TRUE = 1;
 
+    public static final Gson GSON = new GsonBuilder()
+            .setDateFormat("yyyy-MM-dd HH:mm:ss")
+            .setPrettyPrinting()
+            .create();
+
     public static String encode(String string) {
-        byte[] mByte = Base64.encode(string.getBytes(), Base64.DEFAULT);
-        return new String(mByte);
+        if (!TextUtils.isEmpty(string)) {
+            byte[] mByte = Base64.encode(string.getBytes(), Base64.DEFAULT);
+            return new String(mByte);
+        }
+        return null;
     }
 
     public static String decode(String string) {
-        byte[] mByte = Base64.decode(string.getBytes(), Base64.DEFAULT);
-        return new String(mByte);
+        if (!TextUtils.isEmpty(string)) {
+            byte[] mByte = Base64.decode(string.getBytes(), Base64.DEFAULT);
+            return new String(mByte);
+        }
+        return null;
     }
 
     public static String getString(Cursor cursor, String columnName) {

@@ -9,7 +9,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import cn.zhang.qiang.hellgate.db.Db;
-import cn.zhang.qiang.hellgate.db.DbModel;
 import cn.zhang.qiang.hellgate.db.DbTable;
 import cn.zhang.qiang.hellgate.utils.TimeHelper;
 
@@ -19,7 +18,7 @@ import cn.zhang.qiang.hellgate.utils.TimeHelper;
  * Created by mrZQ on 2017/4/5.
  */
 
-public final class Accounts implements DbModel {
+public final class Account {
 
     private long id = -1;
     public String username;
@@ -28,7 +27,7 @@ public final class Accounts implements DbModel {
     public String remark;
     public long created;
 
-    public Accounts() {
+    public Account() {
         this.created = System.currentTimeMillis();
     }
 
@@ -36,7 +35,6 @@ public final class Accounts implements DbModel {
         return TimeHelper.showTime(created);
     }
 
-    @Override
     public void setValuesFromCursor(Cursor cursor) {
         id = Db.getLong(cursor, Table.COL_ID);
         username = Db.decode(Db.getString(cursor, Table.COL_USERNAME));
@@ -46,7 +44,6 @@ public final class Accounts implements DbModel {
         created = Db.getLong(cursor, Table.COL_CREATE);
     }
 
-    @Override
     public ContentValues toContentValues() {
         ContentValues out = new ContentValues();
 
@@ -62,7 +59,6 @@ public final class Accounts implements DbModel {
         return out;
     }
 
-    @Override
     public void setId(long id) {
         this.id = id;
     }

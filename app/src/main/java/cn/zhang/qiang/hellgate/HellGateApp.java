@@ -22,20 +22,57 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
-import cn.zhang.qiang.hellgate.db.DbBus;
+import com.squareup.picasso.Picasso;
+
+import javax.inject.Inject;
+
+import cn.qiang.zhang.logger.Log;
+import cn.zhang.qiang.hellgate.di.component.AppComponent;
+import cn.zhang.qiang.hellgate.di.component.DaggerAppComponent;
+import cn.zhang.qiang.hellgate.di.module.AppModule;
+import okhttp3.Call;
+import okhttp3.OkHttpClient;
 
 /**
+ * App级别，因此可以在应用的任何地方（需要增加inject方法）注入相关依赖，通常是网络和数据库部分
  * <p>
  * Created by mrZQ on 2017/3/5.
  */
 
-public class HellGateApp extends Application {
+public final class HellGateApp extends Application {
+    private static AppComponent component;
+
+    @Inject Picasso picasso;
+    @Inject OkHttpClient client;
 
     @Override
     public void onCreate() {
         super.onCreate();
+        Log.debug(BuildConfig.DEBUG);
 
-        DbBus.initDb(this);
+        component = DaggerAppComponent.builder().appModule(new AppModule(this)).build();
+
+        component.inject(this);
+        Picasso.setSingletonInstance(picasso);
+
+    }
+
+    /** 取消对应Tag的请求，这是一个示例，后续可能要用到 */
+    public boolean cancelTag(Object tag) {
+        boolean isSuccessful = false;
+        for (Call call : client.dispatcher().queuedCalls()) {
+            if (tag.equals(call.request().tag())) {
+                call.cancel();
+                isSuccessful = true;
+            }
+        }
+        for (Call call : client.dispatcher().runningCalls()) {
+            if (tag.equals(call.request().tag())) {
+                call.cancel();
+                isSuccessful = true;
+            }
+        }
+        return isSuccessful;
     }
 
     /** 网络是否存在、是否已连接 */
@@ -45,4 +82,8 @@ public class HellGateApp extends Application {
         return ni != null && ni.isAvailable() && ni.isConnected();
     }
 
+    /** 提供全局依赖注入组件，通常的，它应该只出现在Model层 */
+    public static AppComponent getComponent() {
+        return component;
+    }
 }

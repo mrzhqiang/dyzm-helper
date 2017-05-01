@@ -11,7 +11,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
  */
 
 public final class NetHelper {
-    private static final String BASE_URL = "http://haowanba.com/";
+    public static final String BASE_URL = "http://haowanba.com/";
 
     private NetService service;
 

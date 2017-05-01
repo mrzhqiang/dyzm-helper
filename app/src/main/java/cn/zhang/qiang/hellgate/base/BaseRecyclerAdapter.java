@@ -15,7 +15,7 @@
  *
  */
 
-package cn.zhang.qiang.hellgate.ui.base;
+package cn.zhang.qiang.hellgate.base;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
