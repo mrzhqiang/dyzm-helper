@@ -8,6 +8,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 /**
+ * 数据库相关常量
  * <p>
  * Created by mrZQ on 2017/4/5.
  */
@@ -23,26 +24,20 @@ public final class Db {
 
     public static String encode(String string) {
         if (!TextUtils.isEmpty(string)) {
-            byte[] mByte = Base64.encode(string.getBytes(), Base64.DEFAULT);
-            return new String(mByte);
+            return new String(Base64.encode(string.getBytes(), Base64.DEFAULT));
         }
         return null;
     }
 
     public static String decode(String string) {
         if (!TextUtils.isEmpty(string)) {
-            byte[] mByte = Base64.decode(string.getBytes(), Base64.DEFAULT);
-            return new String(mByte);
+            return new String(Base64.decode(string.getBytes(), Base64.DEFAULT));
         }
         return null;
     }
 
     public static String getString(Cursor cursor, String columnName) {
         return cursor.getString(cursor.getColumnIndex(columnName));
-    }
-
-    public static boolean getBoolean(Cursor cursor, String columnName) {
-        return getLong(cursor, columnName) == BOOLEAN_TRUE;
     }
 
     public static long getLong(Cursor cursor, String columnName) {
@@ -55,6 +50,10 @@ public final class Db {
 
     public static double getDouble(Cursor cursor, String columnName) {
         return cursor.getDouble(cursor.getColumnIndex(columnName));
+    }
+
+    public static boolean getBoolean(Cursor cursor, String columnName) {
+        return getLong(cursor, columnName) == BOOLEAN_TRUE;
     }
 
     private Db() {

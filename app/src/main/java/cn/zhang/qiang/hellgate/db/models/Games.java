@@ -48,8 +48,8 @@ public class Games {
         portalId = Db.getLong(cursor, Table.COL_PORTAL_ID);
 
         // 查询通常是多表联查
-        portalTitle = Db.getString(cursor, Portals.Table.COL_TITLE);
-        portalDomain = Db.getString(cursor, Portals.Table.COL_DOMAIN);
+        portalTitle = Db.getString(cursor, Portal.Table.COL_TITLE);
+        portalDomain = Db.getString(cursor, Portal.Table.COL_DOMAIN);
     }
 
     public ContentValues toContentValues() {
@@ -92,7 +92,7 @@ public class Games {
                 + COL_IS_SUPPORT + " INTEGER NOT NULL DEFAULT 1,"
                 + COL_CREATED + " INTEGER NOT NULL,"
                 + COL_PORTAL_ID + " INTEGER NOT NULL REFERENCES "
-                + Portals.Table.NAME + "(" + _ID + ") ON DELETE CASCADE"
+                + Portal.Table.NAME + "(" + _ID + ") ON DELETE CASCADE"
                 + ");";// 父表是门户网站，删除则应该级联删除旗下的游戏列表
 
         @Override

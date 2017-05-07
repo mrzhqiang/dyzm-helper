@@ -10,7 +10,7 @@ import java.util.List;
 import cn.qiang.zhang.logger.Log;
 import cn.zhang.qiang.hellgate.db.models.Account;
 import cn.zhang.qiang.hellgate.db.models.Games;
-import cn.zhang.qiang.hellgate.db.models.Portals;
+import cn.zhang.qiang.hellgate.db.models.Portal;
 import cn.zhang.qiang.hellgate.db.models.Servers;
 
 /**
@@ -26,7 +26,7 @@ public class DbHelper extends SQLiteOpenHelper {
 
     /** 这里包括所有表的创建语句，还有数据库版本的升、降级语句 */
     private static final DbTable[] DB_TABLES = new DbTable[]{
-            new Portals.Table(),
+            new Portal.Table(),
             new Games.Table(),
             new Servers.Table(),
             new Account.Table(),

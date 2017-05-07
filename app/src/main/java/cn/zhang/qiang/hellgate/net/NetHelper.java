@@ -13,7 +13,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 public final class NetHelper {
     public static final String BASE_URL = "http://haowanba.com/";
 
-    private NetService service;
+    private HellGate service;
 
     private static class Holder {
         private static NetHelper N = new NetHelper();
@@ -28,7 +28,7 @@ public final class NetHelper {
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .build();
 
-        service = retrofit.create(NetService.class);
+        service = retrofit.create(HellGate.class);
     }
 
     public static void host(Callback<String> callback) {

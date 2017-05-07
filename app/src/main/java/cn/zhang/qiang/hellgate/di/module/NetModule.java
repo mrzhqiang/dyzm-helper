@@ -14,6 +14,7 @@ import javax.inject.Singleton;
 import cn.qiang.zhang.logger.Log;
 import cn.zhang.qiang.hellgate.BuildConfig;
 import cn.zhang.qiang.hellgate.net.NetHelper;
+import cn.zhang.qiang.hellgate.net.WeChat;
 import dagger.Module;
 import dagger.Provides;
 import okhttp3.OkHttpClient;
@@ -64,4 +65,14 @@ public final class NetModule {
                 .build();
     }
 
+    // todo Some a little Api
+
+    @Provides @Singleton WeChat provideWeChatApi(Retrofit retrofit) {
+        return retrofit.create(WeChat.class);
+    }
+
+//    @Provides @Singleton
+//    Converter<ResponseBody, ServiceError> provideErrorConverter(Retrofit retrofit) {
+//        return retrofit.responseBodyConverter(ServiceError.class, new Annotation[0]);
+//    }
 }

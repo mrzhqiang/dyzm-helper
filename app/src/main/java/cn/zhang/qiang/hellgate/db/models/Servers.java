@@ -52,8 +52,8 @@ public class Servers {
         gameName = Db.getString(cursor, Games.Table.COL_NAME);
         gameHost = Db.getString(cursor, Games.Table.COL_HOST);
         isSupport = Db.getBoolean(cursor, Games.Table.COL_IS_SUPPORT);
-        portalTitle = Db.getString(cursor, Portals.Table.COL_TITLE);
-        portalDomain = Db.getString(cursor, Portals.Table.COL_DOMAIN);
+        portalTitle = Db.getString(cursor, Portal.Table.COL_TITLE);
+        portalDomain = Db.getString(cursor, Portal.Table.COL_DOMAIN);
     }
 
     public ContentValues toContentValues() {

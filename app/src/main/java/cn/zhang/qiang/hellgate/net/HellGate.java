@@ -9,7 +9,7 @@ import retrofit2.http.Query;
  * Created by mrZQ on 2017/4/5.
  */
 
-public interface NetService {
+public interface HellGate {
 
     @GET("/")
     Call<String> host();

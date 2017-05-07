@@ -1,6 +1,12 @@
 # HellGate
-This is an android application, used for supporting web game:haowanba.com
-### 1. Dependencies
+This is an android application, used for supporting web game: haowanba.com
+
+### 1. Structure
+Using the [MVVM](https://github.com/googlesamples/android-architecture) design pattern.  
+`Model` dispose `Database, Network and Other data.`  
+`View` just is `Activity, Fragment, RecyclerView, Dialog...`  
+`ViewModel` is the connector, and contain update UI or respond user event.
+### 2. Dependencies
 App module build.gradle file    
   
 [WeChat](https://open.weixin.qq.com/)  
@@ -72,7 +78,7 @@ App module build.gradle file
 [goodview](https://github.com/venshine/GoodView)
 ` compile 'com.wx.goodview:goodview:1.0.0' `
   
-### 2. TODO
+### 3. TODO
 * AutoValue is Db model
 * POJO or Game's content of Object is app model
 * Custom converter for wml source code
